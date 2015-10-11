@@ -1,5 +1,84 @@
-div {
-  width: 20%;
-  height: 10%;
-  background-color: green;
+/*********Navigation Bars***********/
+div.top-nav {
+  width: 100%;
+  height: 100px;
+  background-color: aquamarine;
 }
+
+div.bottom-nav {
+  width: 100%;
+  height: 100px;
+  background-color: aquamarine;
+  margin-bottom: 10px;
+  clear: both;
+}
+
+/******Three Main Vertical Containers********/
+#container-left {
+  position: static;
+  width: 250px;
+  height: 600px;
+  border: 10px solid white;
+  background-color: gray;
+  float: left;
+}
+
+#container-middle {
+  position: absolute;
+  left: 270px;
+  width: 400px;
+  height: 600px;
+  border: 10px solid white;
+  background-color: gold;
+}
+
+#container-right {
+  position: absolute;
+  left: 685px;
+  width: 250px;
+  height: 600px;
+  background-color: royalBlue;
+  border: 10px solid white;
+  float: left;
+}
+
+/*********Boxes in Left-Container**********/
+div.rules {
+  position: relative;
+  top: 20px;
+  left: 25px;
+  width: 200px;
+  height: 275px;
+  background-color: LemonChiffon;
+}
+
+div.scoreboard {
+  position: relative;
+  top: 30px;
+  left: 25px;
+  width: 200px;
+  height: 275px;
+  background-color: CadetBlue;
+  float: left;
+}
+
+/**********Tic Tac Toe Boxes***********/
+#container-box { /*This holds all nine TTT boxes (div.box)*/
+  width: 360px;
+  height: 400px;
+  margin: auto;
+}
+
+div.box {
+  width: 100px;
+  height: 100px;
+  background-color: lightcoral;
+  margin: 10px 10px 10px 10px;
+  float: left;
+}
+
+#newrow {/*used to set a new row within div.box*/
+  clear: left;
+}
+
+
