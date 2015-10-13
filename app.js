@@ -6,15 +6,15 @@
 
 //1. Define TTT board as an object.
 var ttt_board = {
-  one: null;
-  two: null;
-  three: null;
-  four: null;
-  five: null;
-  six: null;
-  seven: null;
-  eight: null;
-  nine: null;
+  one: null,
+  two: null,
+  three: null,
+  four: null,
+  five: null,
+  six: null,
+  seven: null,
+  eight: null,
+  nine: null,
 };
 //2-3. Functions to calculate winner.
 var three_X = function(){};
