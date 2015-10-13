@@ -20,9 +20,22 @@ var ttt_board = {
 };
 
 //2-3. Functions to calculate winner.
-var three_X = function(){};
-var three_O = function(){};
-var getWinner = function getWinner(three_X, three_O){};
+var three_X = function(){
+  if ((ttt_board.one==='X' && ttt_board.two==='X' && ttt_board.three==='X')||
+     (ttt_board.four==='X' && ttt_board.five==='X' && ttt_board.six==='X')||
+     (ttt_board.seven==='X' && ttt_board.eight==='X' && ttt_board.nine==='X')||
+     (ttt_board.one==='X' && ttt_board.four==='X' && ttt_board.seven==='X')||
+     (ttt_board.two==='X' && ttt_board.five==='X' && ttt_board.eight==='X')||
+     (ttt_board.three==='X' && ttt_board.six==='X' && ttt_board.nine==='X')||
+     (ttt_board.one==='X' && ttt_board.five==='X' && ttt_board.nine==='X')||
+     (ttt_board.three==='X' && ttt_board.five==='X' && ttt_board.seven==='X')
+    ){return 'true'};
+}; //return true/false
+var three_O = function(){};//return true/false
+var getWinner = function getWinner(three_X, three_O){
+  //if three_X is true, return X is winner. Vice versa.
+  //run until either X or O is true.
+};
 
 //4. function to alternate between X and O.
 var counter = 0;
@@ -32,18 +45,18 @@ var xAndO = function(){
   }else return 'O';
 }
 
-//5. handler that appends X to box clicked.
+//5. handler that appends X or O to box clicked.
 var setXO = function setXO(){
   //if div.box clicked is empty, append X, otherwise do nothing.
   var $this = $(this);
-  if ($this.html()!== xAndO){
-    $this.append(xAndO);
-  };
+  if ($this.html()!== 'X' && $this.html()!=='O'){
+    $this.append(xAndO());
   //update object ttt_board once div box has been clicked.
   //$this.attr('class') --> returns the value of the class, of the div that was clicked.
-  ttt_board[$this.attr('class')]= xAndO;
+    ttt_board[$this.attr('class')]= xAndO();
   //increment counter so that var xAndO will return a different value the next time it's called.
-  counter++;
+    counter++;
+  };
 };
 
 

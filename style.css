@@ -74,6 +74,8 @@ div.scoreboard {
 #box {
   width: 100px;
   height: 100px;
+  text-align: center;
+  font-size: 45px;
   background-color: lightcoral;
   margin: 10px 10px 10px 10px;
   float: left;
