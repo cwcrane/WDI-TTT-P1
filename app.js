@@ -1,16 +1,9 @@
-//1. Define TTT board as an object.
-//2. 'getWinner' function to determine if there a winner.
-//3. 'getWinner' will need two callback functions 'three_X' and 'three_O', to determine whether X or O have three in a row yet.
-//4. function to alternate between X and O.
-//5. create eventhandler for clicks on any box; handler should set the corresponding value in the ttt-board object to x.
-//6. Game logic: who goes first. Alternate turns. Stop when there's a winner.
-
-//note: still need to finish getWinner, to account for ties.
 //note: seperation of concerns.
-//comunicate status of game to server.
-//change my object to an array.
-//then add to the function which updates my board, so that it will also update the api.
-
+//
+//After each move, update the server. PATCH. /games/:id
+//...when move is made, setXO function will also trigger a PATCH to the server, to update a particular game
+//figure out how to test if ajax patch worked.
+//create player 1 and player 2 objects, based on api. Will need to access their tokens.
 
 //Define TTT board as an array.
 var ttt_board =
@@ -49,19 +42,19 @@ var fullBoard = function(){ //returns true if board is full
   }
 };
 
-var getWinner = function getWinner(){ //returns 'X', 'O', or undefined.
+var getWinner = function(){ //returns 'X', 'O', or undefined.
   if(three_X()===true){
     return 'X';
   }else if (three_O()===true){
     return 'O';
   }
 };
-var determineTie = function determineTie(){ //returns 'tie' or undefined.
+var determineTie = function(){ //returns 'tie' or undefined.
   if (fullBoard() === true && getWinner() !== true){
     return 'tie';
   }
 };
-var clearBoard = function clearBoard (){
+var clearBoard = function(){
   for (var i=0; i<9; i++){
     ttt_board[i] = null;
     $("#box."+[i]).html('');
@@ -74,7 +67,7 @@ var xAndO = function(){
   if (counter%2===0){
     return 'X';
   }else return 'O';
-}
+};
 
 //Handler that appends X or O to box clicked.
 //if div.box clicked is empty, append X, otherwise do nothing.
@@ -93,6 +86,16 @@ var setXO = function setXO(){
     alert ('Its a tie. Play again');
   };
 };
+//tttapi.markCell($this.id, {
+//   "game": {
+//     "cell": {
+//       "index": 0, //pull in div clicked
+//       "value": "x" //pull in x or o.
+//     },
+//     "over": false
+//   }
+// }, $this.token, callback)
+// };
 
 $(".0").on('click', setXO);
 $(".1").on('click', setXO);
@@ -103,3 +106,4 @@ $(".5").on('click', setXO);
 $(".6").on('click', setXO);
 $(".7").on('click', setXO);
 $(".8").on('click', setXO);
+$("#clear-board").on('submit', clearBoard);

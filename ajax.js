@@ -1,4 +1,10 @@
 'use strict';
+var myApp = {
+  token: '',
+  currentGame: {},
+  id: '',
+};
+
 var tttapi = {
   gameWatcher: null,
   ttt: 'http://ttt.wdibos.com',
@@ -108,7 +114,7 @@ var tttapi = {
 
 //$(document).ready(...
 $(function() {
-  var form2object = function(form) {
+  var form2object = function(form) { //returns data entered in form, as an object?
     var data = {};
     $(form).children().each(function(index, element) {
       var type = $(this).attr('type');
@@ -124,7 +130,7 @@ $(function() {
     return wrapper;
   };
 
-  var callback = function callback(error, data) {
+  var callback = function callback(error, data) { //either returns an error or $(#result)
     if (error) {
       console.error(error);
       $('#result').val('status: ' + error.status + ', error: ' +error.error);
@@ -133,6 +139,7 @@ $(function() {
     $('#result').val(JSON.stringify(data, null, 4));
   };
 
+////////////////CLICK HANDLERS///////////////
   $('#register').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
     tttapi.register(credentials, callback);
@@ -141,17 +148,21 @@ $(function() {
 
   $('#login').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
+    // {'credentials': {'email':'', 'password': ''}}
     var cb = function cb(error, data) {
+      //console.log("Error: " + error);
+      //console.log("Data: " + data);
       if (error) {
         callback(error);
         return;
       }
-      callback(null, data);
-      $('.token').val(data.user.token);
+      // callback(null, data);
+      // $('.token').val(data.user.token);
       console.log(data.user.token);
+      myApp.token = data.user.token;
     };
     e.preventDefault();
-    tttapi.login(credentials, cb);
+    tttapi.login(credentials, cb); //when #login button is clicked, tttapi.login is run. This runs an ajax call, using credentials input by user. ajax call then runs cb. cb is a function which takes the data returned by server, and sets data.user.token to myApp.token.
   });
 
   $('#list-games').on('submit', function(e) {
@@ -161,9 +172,13 @@ $(function() {
   });
 
   $('#create-game').on('submit', function(e) {
-    var token = $(this).children('[name="token"]').val();
+    // var token = $(this).children('[name="token"]').val();
     e.preventDefault();
-    tttapi.createGame(token, callback);
+    tttapi.createGame(myApp.token, function(err, data){ //ajax is using this callback, and setting data argument
+      myApp.currentGame = data.game;
+      myApp.id = data.game.id;
+      console.log(myApp.id);
+    });
   });
 
   $('#show-game').on('submit', function(e) {
