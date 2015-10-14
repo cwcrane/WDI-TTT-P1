@@ -5,39 +5,65 @@
 //5. create eventhandler for clicks on any box; handler should set the corresponding value in the ttt-board object to x.
 //6. Game logic: who goes first. Alternate turns. Stop when there's a winner.
 
+//note: still need to finish getWinner, to account for ties.
+//note: seperation of concerns.
+//comunicate status of game to server.
+//change my object to an array.
+//then add to the function which updates my board, so that it will also update the api.
 
-//1. Define TTT board as an object.
-var ttt_board = {
-  one: null,
-  two: null,
-  three: null,
-  four: null,
-  five: null,
-  six: null,
-  seven: null,
-  eight: null,
-  nine: null,
+
+//Define TTT board as an array.
+var ttt_board =
+  [null, null, null,
+   null, null, null,
+   null, null, null];
+
+//Functions to calculate winner.
+var three_X = function(){ //tests if there are three X's in a row.
+  if ((ttt_board[0]==='X' && ttt_board[1]==='X' && ttt_board[2]==='X')||
+     (ttt_board[3]==='X' && ttt_board[4]==='X' && ttt_board[5]==='X')||
+     (ttt_board[6]==='X' && ttt_board[7]==='X' && ttt_board[8]==='X')||
+     (ttt_board[0]==='X' && ttt_board[3]==='X' && ttt_board[6]==='X')||
+     (ttt_board[1]==='X' && ttt_board[4]==='X' && ttt_board[7]==='X')||
+     (ttt_board[2]==='X' && ttt_board[5]==='X' && ttt_board[8]==='X')||
+     (ttt_board[0]==='X' && ttt_board[4]==='X' && ttt_board[8]==='X')||
+     (ttt_board[2]==='X' && ttt_board[4]==='X' && ttt_board[6]==='X')
+    ){return true;
+  }else return false;
+};
+var three_O = function(){ //tests if there are three O's in a row.
+  if ((ttt_board[0]==='O' && ttt_board[1]==='O' && ttt_board[2]==='O')||
+     (ttt_board[3]==='O' && ttt_board[4]==='O' && ttt_board[5]==='O')||
+     (ttt_board[6]==='O' && ttt_board[7]==='O' && ttt_board[8]==='X')||
+     (ttt_board[0]==='O' && ttt_board[3]==='O' && ttt_board[6]==='O')||
+     (ttt_board[1]==='O' && ttt_board[4]==='O' && ttt_board[7]==='O')||
+     (ttt_board[2]==='O' && ttt_board[5]==='O' && ttt_board[8]==='O')||
+     (ttt_board[0]==='O' && ttt_board[4]==='O' && ttt_board[8]==='O')||
+     (ttt_board[2]==='O' && ttt_board[4]==='O' && ttt_board[6]==='O')
+    ){return true;
+  }else return false;
+};
+var fullBoard = function(){ //returns true if board is full
+  if ((ttt_board[0]!==null && ttt_board[1]!==null && ttt_board[2]!==null && ttt_board[3]!==null && ttt_board[4]!==null && ttt_board[5]!==null && ttt_board[6]!==null && ttt_board[7]!==null && ttt_board[8]!==null)){
+    return true;
+  }
 };
 
-//2-3. Functions to calculate winner.
-var three_X = function(){
-  if ((ttt_board.one==='X' && ttt_board.two==='X' && ttt_board.three==='X')||
-     (ttt_board.four==='X' && ttt_board.five==='X' && ttt_board.six==='X')||
-     (ttt_board.seven==='X' && ttt_board.eight==='X' && ttt_board.nine==='X')||
-     (ttt_board.one==='X' && ttt_board.four==='X' && ttt_board.seven==='X')||
-     (ttt_board.two==='X' && ttt_board.five==='X' && ttt_board.eight==='X')||
-     (ttt_board.three==='X' && ttt_board.six==='X' && ttt_board.nine==='X')||
-     (ttt_board.one==='X' && ttt_board.five==='X' && ttt_board.nine==='X')||
-     (ttt_board.three==='X' && ttt_board.five==='X' && ttt_board.seven==='X')
-    ){return 'true'};
-}; //return true/false
-var three_O = function(){};//return true/false
-var getWinner = function getWinner(three_X, three_O){
-  //if three_X is true, return X is winner. Vice versa.
-  //run until either X or O is true.
+var getWinner = function getWinner(){
+  if(three_X()===true){
+    return 'X';
+  }else if (three_O()===true){
+    return 'O';
+  }
+};
+var determineTie = function determineTie(){
+  if (fullBoard() === true && getWinner() !== true){
+    return 'tie';
+  }
 };
 
-//4. function to alternate between X and O.
+
+//Function to alternate between return of X and O, based on counter.
 var counter = 0;
 var xAndO = function(){
   if (counter%2===0){
@@ -45,27 +71,30 @@ var xAndO = function(){
   }else return 'O';
 }
 
-//5. handler that appends X or O to box clicked.
+//Handler that appends X or O to box clicked.
+//if div.box clicked is empty, append X, otherwise do nothing.
 var setXO = function setXO(){
-  //if div.box clicked is empty, append X, otherwise do nothing.
   var $this = $(this);
   if ($this.html()!== 'X' && $this.html()!=='O'){
     $this.append(xAndO());
   //update object ttt_board once div box has been clicked.
-  //$this.attr('class') --> returns the value of the class, of the div that was clicked.
     ttt_board[$this.attr('class')]= xAndO();
   //increment counter so that var xAndO will return a different value the next time it's called.
     counter++;
   };
+  if (getWinner()){
+    alert( getWinner() + ' wins! ' + 'Start a new game.');
+  }else if (determineTie()){
+    alert ('Its a tie. Play again');
+};
 };
 
-
-$(".one").on('click', setXO);
-$(".two").on('click', setXO);
-$(".three").on('click', setXO);
-$(".four").on('click', setXO);
-$(".five").on('click', setXO);
-$(".six").on('click', setXO);
-$(".seven").on('click', setXO);
-$(".eight").on('click', setXO);
-$(".nine").on('click', setXO);
+$(".0").on('click', setXO);
+$(".1").on('click', setXO);
+$(".2").on('click', setXO);
+$(".3").on('click', setXO);
+$(".4").on('click', setXO);
+$(".5").on('click', setXO);
+$(".6").on('click', setXO);
+$(".7").on('click', setXO);
+$(".8").on('click', setXO);

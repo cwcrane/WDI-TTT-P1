@@ -6,28 +6,41 @@
 </head>
 
 <body>
-  <div class="top-nav">Tic Tac Toe</div>
+  <div class="top-nav">Tic Tac Toe
+    <form id="register">
+      <input name="email" type="text" placeholder="email">
+      <input name="password" type="password" placeholder="password">
+      <input name="password_confirmation" type="password" placeholder="password confirmation">
+      <input name="register" type="submit" value="Register">
+    </form>
+    <form id="login">
+      <input name="email" type="text" placeholder="email">
+      <input name="password" type="password" placeholder="password">
+      <input name="login" type="submit" value="Login">
+    </form>
+  </div>
   <div id="container-left">
     <div class="rules">The object of Tic Tac Toe is to get three in a row. Players alternate placing Xs and Os on the game board until either oppent has three in a row or all nine squares are filled.</div>
     <div class="scoreboard"></div>
   </div>
   <div id="container-middle">
     <div id="container-box">
-      <div class="one" id="box"></div>
-      <div class="two" id="box"></div>
-      <div class="three" id="box"></div>
-      <div class="four" id="box" id="newrow"></div>
-      <div class="five" id="box"></div>
-      <div class="six" id="box"></div>
-      <div class="seven" id="box" id="newrow"></div>
-      <div class="eight" id="box"></div>
-      <div class="nine" id="box"></div>
+      <div class="0" id="box"></div>
+      <div class="1" id="box"></div>
+      <div class="2" id="box"></div>
+      <div class="3" id="box" id="newrow"></div>
+      <div class="4" id="box"></div>
+      <div class="5" id="box"></div>
+      <div class="6" id="box" id="newrow"></div>
+      <div class="7" id="box"></div>
+      <div class="8" id="box"></div>
     </div>
   </div>
   <div id="container-right"></div>
   <div class="bottom-nav"></div>
   <script src="jquery.js" type="application/javascript"></script>
   <script src="app.js" type="application/javascript" charset="utf-8" async defer></script>
+  <script src="ajax.js" type="application/javascript" charset="utf-8" async defer></script>
 
 </body>
 </html>
