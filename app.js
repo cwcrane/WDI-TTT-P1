@@ -49,19 +49,24 @@ var fullBoard = function(){ //returns true if board is full
   }
 };
 
-var getWinner = function getWinner(){
+var getWinner = function getWinner(){ //returns 'X', 'O', or undefined.
   if(three_X()===true){
     return 'X';
   }else if (three_O()===true){
     return 'O';
   }
 };
-var determineTie = function determineTie(){
+var determineTie = function determineTie(){ //returns 'tie' or undefined.
   if (fullBoard() === true && getWinner() !== true){
     return 'tie';
   }
 };
-
+var clearBoard = function clearBoard (){
+  for (var i=0; i<9; i++){
+    ttt_board[i] = null;
+    $("#box."+[i]).html('');
+  }
+};
 
 //Function to alternate between return of X and O, based on counter.
 var counter = 0;
@@ -86,7 +91,7 @@ var setXO = function setXO(){
     alert( getWinner() + ' wins! ' + 'Start a new game.');
   }else if (determineTie()){
     alert ('Its a tie. Play again');
-};
+  };
 };
 
 $(".0").on('click', setXO);
