@@ -10,6 +10,7 @@ var ttt_board =
 var myApp = {
   token: '',
   currentGame: {},
+  board: [],
   id: '',
 };
 
@@ -70,6 +71,25 @@ var xAndO = function(){
   }else return 'O';
 };
 
+var myAppTottt_boardSync = function (){//syncs ttt_board with myApp.board
+  for(var i = 0; i<9; i++){
+    if (myApp.board[i] !== ""){
+      ttt_board[i] = myApp.board[i];
+    }
+  }
+}
+
+//callback function for markCell, which updates myApp.currentGame
+var updateBoard = function callback(error, data) {
+  if (error) {
+    console.error(error);
+    return;
+  }
+  myApp.currentGame = data.game;
+  myApp.board = data.game.cells;
+  myAppTottt_boardSync();
+};
+
 //Handler that appends X or O to box clicked.
 //if div.box clicked is empty, append X, otherwise do nothing.
 var setXO = function setXO(){
@@ -78,6 +98,16 @@ var setXO = function setXO(){
     $this.append(xAndO());
   //update object ttt_board once div box has been clicked.
     ttt_board[$this.attr('class')]= xAndO();
+  //update server
+    tttapi.markCell(myApp.id, {
+       "game": {
+         "cell": {
+           "index": $this.attr('class'),
+           "value": xAndO()
+         },
+         "over": false
+       }
+     }, myApp.token, updateBoard);
   //increment counter so that var xAndO will return a different value the next time it's called.
     counter++;
   };

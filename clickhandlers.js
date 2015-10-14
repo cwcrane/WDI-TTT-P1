@@ -54,8 +54,6 @@ $(document).ready(
           callback(error);
           return;
         }
-        // callback(null, data);
-        // $('.token').val(data.user.token);
         console.log(data.user.token);
         myApp.token = data.user.token;
       };
@@ -75,7 +73,9 @@ $(document).ready(
       tttapi.createGame(myApp.token, function(err, data){ //ajax is using this callback, and setting data argument
         myApp.currentGame = data.game;
         myApp.id = data.game.id;
+        myApp.board = data.game.cells;
         console.log(myApp.id);
+        console.log(myApp.currentGame);
       });
     });
 
