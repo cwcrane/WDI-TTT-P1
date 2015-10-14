@@ -1,0 +1,40 @@
+//After each move, update the server. PATCH. /games/:id
+//...when move is made, setXO function will also trigger a PATCH to the server, to update a particular game
+//figure out how to test if ajax patch worked.
+//create player 1 and player 2 objects, based on api. Will need to access their tokens.
+
+curl --request POST --header "Authorization: Token token=291bfe38e3f9190f6e436480bfc57764" -d '{}'  http://ttt.wdibos.com/games
+
+curl --header "Authorization: Token token=fba221240440550c31a5efac95452e98" http://ttt.wdibos.com/games/272
+$.ajax({
+  url:
+
+})
+ .done(function(data){
+    // do something with data
+    console.log(data);
+    debugger;
+ })
+ .fail(function(error){
+    console.log(error);
+ });
+
+
+
+//how do I test what tttapi.method is going to give me back.
+//how to use markcell to update server after every move.
+
+tttapi.markCell(272, 'X', )
+
+markCell: function (id, data, token, callback) {
+    this.ajax({
+      method: 'PATCH',
+      url: this.ttt + '/games/' + id,
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(data),
+      dataType: 'json'
+    }, callback);
+  },

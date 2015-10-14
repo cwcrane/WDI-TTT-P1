@@ -1,15 +1,17 @@
-//note: seperation of concerns.
-//
-//After each move, update the server. PATCH. /games/:id
-//...when move is made, setXO function will also trigger a PATCH to the server, to update a particular game
-//figure out how to test if ajax patch worked.
-//create player 1 and player 2 objects, based on api. Will need to access their tokens.
+'use strict';
 
-//Define TTT board as an array.
+//TTT board as an array.
 var ttt_board =
   [null, null, null,
    null, null, null,
    null, null, null];
+
+//Game State.
+var myApp = {
+  token: '',
+  currentGame: {},
+  id: '',
+};
 
 //Functions to calculate winner.
 var three_X = function(){ //tests if there are three X's in a row.
@@ -41,7 +43,6 @@ var fullBoard = function(){ //returns true if board is full
     return true;
   }
 };
-
 var getWinner = function(){ //returns 'X', 'O', or undefined.
   if(three_X()===true){
     return 'X';
@@ -96,14 +97,3 @@ var setXO = function setXO(){
 //   }
 // }, $this.token, callback)
 // };
-
-$(".0").on('click', setXO);
-$(".1").on('click', setXO);
-$(".2").on('click', setXO);
-$(".3").on('click', setXO);
-$(".4").on('click', setXO);
-$(".5").on('click', setXO);
-$(".6").on('click', setXO);
-$(".7").on('click', setXO);
-$(".8").on('click', setXO);
-$("#clear-board").on('submit', clearBoard);
