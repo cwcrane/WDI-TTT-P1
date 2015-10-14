@@ -44,7 +44,7 @@ var fullBoard = function(){ //returns true if board is full
     return true;
   }
 };
-var getWinner = function(){ //returns 'X', 'O', or undefined.
+var getWinner = function (){ //returns 'X', 'O', or undefined.
   if(three_X()===true){
     return 'X';
   }else if (three_O()===true){
@@ -62,7 +62,8 @@ var clearBoard = function(){
     $("#box."+[i]).html('');
   }
 };
-
+var winsX = 0;
+var winsO = 0;
 //Function to alternate between return of X and O, based on counter.
 var counter = 0;
 var xAndO = function(){
@@ -77,7 +78,21 @@ var myAppTottt_boardSync = function (){//syncs ttt_board with myApp.board
       ttt_board[i] = myApp.board[i];
     }
   }
-}
+};
+var endOfGameFunctions = function (){
+  if (getWinner()){
+    alert(getWinner() + ' wins! ' + 'Start a new game.');
+    if (getWinner()==='X'){
+      winsX++;
+      $("#player_x").html(winsX);
+    }else {
+      winsO++;
+      $("#player_o").html(winsO);
+    }
+  }else if (determineTie()){
+    alert ('Its a tie. Play again');
+  };
+};
 
 //callback function for markCell, which updates myApp.currentGame
 var updateBoard = function callback(error, data) {
@@ -111,19 +126,6 @@ var setXO = function setXO(){
   //increment counter so that var xAndO will return a different value the next time it's called.
     counter++;
   };
-  if (getWinner()){
-    alert( getWinner() + ' wins! ' + 'Start a new game.');
-  }else if (determineTie()){
-    alert ('Its a tie. Play again');
-  };
+  endOfGameFunctions();
 };
-//tttapi.markCell($this.id, {
-//   "game": {
-//     "cell": {
-//       "index": 0, //pull in div clicked
-//       "value": "x" //pull in x or o.
-//     },
-//     "over": false
-//   }
-// }, $this.token, callback)
-// };
+
