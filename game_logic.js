@@ -60,8 +60,9 @@ var determineTie = function(){ //returns 'tie' or undefined.
 var clearBoard = function(){
   for (var i=0; i<9; i++){
     ttt_board[i] = null;
+    ttt_boardTomyAppSync();
     $("#box."+[i]).html('');
-  }ttt_boardTomyAppSync();
+  }
 };
 var winsX = 0;
 var winsO = 0;
@@ -74,7 +75,6 @@ var xAndO = function(){
     return 'X';
   }else return 'O';
 };
-
 var myAppTottt_boardSync = function (){//syncs ttt_board with myApp.board
   for(var i = 0; i<9; i++){
     if (myApp.board[i] !== ""){
@@ -91,19 +91,33 @@ var ttt_boardTomyAppSync = function () {
     }
   }
 };
-
+var newGame = function(){
+  tttapi.createGame(myApp.token, function(err, data){
+    clearBoard();
+    myApp.currentGame = data.game;
+    myApp.id = data.game.id;
+    myApp.board = data.game.cells;
+    $("div.game-id").html(myApp.id);
+  });
+}
 var endOfGameFunctions = function (){
   if (getWinner()){
     alert(getWinner() + ' wins! ' + 'Start a new game.');
     if (getWinner()==='X'){
       winsX++;
       $("#player_x").html(winsX);
-    }else {
+      //create new Game and clear board
+      newGame();
+  }else {
       winsO++;
       $("#player_o").html(winsO);
+      clearBoard();
+      newGame();
     }
   }else if (determineTie()){
     alert ('Its a tie. Play again');
+    clearBoard();
+    newGame();
   };
 };
 

@@ -72,6 +72,7 @@ $(document).ready(
       // var token = $(this).children('[name="token"]').val();
       e.preventDefault();
       tttapi.createGame(myApp.token, function(err, data){ //ajax is using this callback, and setting data argument
+        clearBoard();
         myApp.currentGame = data.game;
         myApp.id = data.game.id;
         myApp.board = data.game.cells;

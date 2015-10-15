@@ -1,11 +1,13 @@
 join game as player 'o' -->update.
 Watch another game
-undo button
 Automatically open a new game after someone wins.
 Display user stats: number of games played. And total record.
+Add: "mode" to the game info section. (single or multi device.)
 
 Styling:
-customize tokens
+background color
+center everything
+customize tokens - checkboxes.
 responsive
 
 
