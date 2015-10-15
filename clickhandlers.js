@@ -79,6 +79,8 @@ $(document).ready(
         $("div.game-id").html(myApp.id);
         console.log(myApp.id);
         console.log(myApp.currentGame);
+        $(".username_x").html(myApp.currentGame.player_x.email);
+        $(".username_o").html(myApp.currentGame.player_o.email);
       });
     });
 
@@ -90,10 +92,21 @@ $(document).ready(
     });
 
     $('#join-game').on('submit', function(e) {
-      var token = $(this).children('[name="token"]').val();
+      //var token = $(this).children('[name="token"]').val();
       var id = $('#join-id').val();
+      console.log(id);
       e.preventDefault();
-      tttapi.joinGame(id, token, callback);
+      tttapi.joinGame(id, myApp.token, function(err, data){ //ajax is using this callback, and setting data argument
+          clearBoard();
+          myApp.currentGame = data.game;
+          myApp.id = data.game.id;
+          myApp.board = data.game.cells;
+          $("div.game-id").html(myApp.id);
+          console.log(myApp.id);
+          console.log(myApp.currentGame);
+          $(".username_x").html(myApp.currentGame.player_x.email);
+          $(".username_o").html(myApp.currentGame.player_o.email);
+        });
     });
 
     $('#mark-cell').on('submit', function(e) {

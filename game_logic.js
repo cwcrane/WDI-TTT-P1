@@ -68,6 +68,8 @@ var winsX = 0;
 var winsO = 0;
 $("#player_x").html(winsX);
 $("#player_o").html(winsO);
+
+
 //Function to alternate between return of X and O, based on counter.
 var counter = 0;
 var xAndO = function(){
@@ -91,7 +93,7 @@ var ttt_boardTomyAppSync = function () {
     }
   }
 };
-var newGame = function(){
+var newGame = function(){//opens a new game with ajax call and clears board
   tttapi.createGame(myApp.token, function(err, data){
     clearBoard();
     myApp.currentGame = data.game;

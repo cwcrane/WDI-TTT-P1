@@ -31,6 +31,8 @@
       <div class="title">Game Info:</div><br>
       Game id:<div class="game-id">None</div><br>
       Next Move:<div class="whoseMove">X</div><br>
+      Player X:<div class="username_x"></div><br><br>
+      Player O:<div class="username_o"></div><br><br>
 
     </div>
   </div>
@@ -54,6 +56,12 @@
         <input name="create-game" type="submit" value="New Game">
         <input class="token" name="token" type="hidden"><br><br>
       </form>
+      <form id="join-game">
+        <label for="join-id">Id:</label>
+        <input id="join-id" type="text" size="4">
+        <input name="join-game" type="submit" value="Join Game">
+        <input class="token" name="token" type="hidden">
+      </form><br>
       <form id="clearBoard">
         <input name="clearBoard" type="button" onclick="reset()" value="Clear Board"><br><br>
       </form>
