@@ -1,6 +1,12 @@
-fix clearboard
-count winners
+join game as player 'o' -->update.
+Watch another game
+undo button
+Automatically open a new game after someone wins.
+Display user stats: number of games played. And total record.
 
+Styling:
+customize tokens
+responsive
 
 
 curl --request POST --header "Authorization: Token token=291bfe38e3f9190f6e436480bfc57764" -d '{}'  http://ttt.wdibos.com/games

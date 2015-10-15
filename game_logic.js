@@ -12,6 +12,7 @@ var myApp = {
   currentGame: {},
   board: [],
   id: '',
+  nextMove: 'X',
 };
 
 //Functions to calculate winner.
@@ -56,7 +57,7 @@ var determineTie = function(){ //returns 'tie' or undefined.
     return 'tie';
   }
 };
-var clearBoard = function(){
+var reset = function(){
   for (var i=0; i<9; i++){
     ttt_board[i] = null;
     $("#box."+[i]).html('');
@@ -64,6 +65,8 @@ var clearBoard = function(){
 };
 var winsX = 0;
 var winsO = 0;
+$("#player_x").html(winsX);
+$("#player_o").html(winsO);
 //Function to alternate between return of X and O, based on counter.
 var counter = 0;
 var xAndO = function(){
@@ -125,6 +128,8 @@ var setXO = function setXO(){
      }, myApp.token, updateBoard);
   //increment counter so that var xAndO will return a different value the next time it's called.
     counter++;
+    myApp.nextMove = xAndO;
+    $(".whoseMove").html(myApp.nextMove());
   };
   endOfGameFunctions();
 };

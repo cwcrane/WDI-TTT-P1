@@ -9,7 +9,7 @@ $(".5").on('click', setXO);
 $(".6").on('click', setXO);
 $(".7").on('click', setXO);
 $(".8").on('click', setXO);
-$("#clear-board").on('submit', clearBoard);
+$("#Reset").on('submit', reset);
 
 $(document).ready(
   $(function() {
@@ -74,6 +74,7 @@ $(document).ready(
         myApp.currentGame = data.game;
         myApp.id = data.game.id;
         myApp.board = data.game.cells;
+        $("div.game-id").html(myApp.id);
         console.log(myApp.id);
         console.log(myApp.currentGame);
       });

@@ -18,18 +18,20 @@
       <input name="password" type="password" placeholder="password">
       <input name="login" type="submit" value="Login">
     </form>
-    <form id="create-game">
-      <input name="create-game" type="submit" value="Create Game">
-      <input class="token" name="token" type="hidden">
-    </form>
   </div>
   <div id="container-left">
-    <div class="rules">The object of Tic Tac Toe is to get three in a row. Players alternate placing Xs and Os on the game board until either oppent has three in a row or all nine squares are filled.</div>
     <div class="scoreboard">
+      <div class="title">Scoreboard:</div><br>
       Player X:
       <div id="player_x"></div>
-      Plyer O:
+      Player O:
       <div id="player_o"></div>
+    </div>
+    <div class="game-info">
+      <div class="title">Game Info:</div><br>
+      Game id:<div class="game-id">None</div><br>
+      Next Move:<div class="whoseMove">X</div><br>
+
     </div>
   </div>
   <div id="container-middle">
@@ -46,8 +48,16 @@
     </div>
   </div>
   <div id="container-right">
-    <form id="clear-board">
-      <input name="clear-board" type="submit" value="Clear Board">
+    <div class="rules">
+      <div class="title">Menu:</div><br>
+      <form id="create-game">
+        <input name="create-game" type="submit" value="Create Game">
+        <input class="token" name="token" type="hidden"><br><br>
+      </form>
+      <form id="Reset">
+        <input name="Reset" type="submit" value="Reset & Logout"><br><br>
+      </form>
+    </div>
   </div>
   <div class="bottom-nav"></div>
   <script src="jquery.js" type="application/javascript"></script>
