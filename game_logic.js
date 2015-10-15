@@ -57,11 +57,11 @@ var determineTie = function(){ //returns 'tie' or undefined.
     return 'tie';
   }
 };
-var reset = function(){
+var clearBoard = function(){
   for (var i=0; i<9; i++){
     ttt_board[i] = null;
     $("#box."+[i]).html('');
-  }
+  }ttt_boardTomyAppSync();
 };
 var winsX = 0;
 var winsO = 0;
@@ -82,6 +82,16 @@ var myAppTottt_boardSync = function (){//syncs ttt_board with myApp.board
     }
   }
 };
+var ttt_boardTomyAppSync = function () {
+  for(var i = 0; i<9; i++){
+    if (ttt_board[i] !== null){
+       myApp.board[i] = ttt_board[i];
+    }else if (ttt_board[i]===null){
+      myApp.board[i] = "";
+    }
+  }
+};
+
 var endOfGameFunctions = function (){
   if (getWinner()){
     alert(getWinner() + ' wins! ' + 'Start a new game.');

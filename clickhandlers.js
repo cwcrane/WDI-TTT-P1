@@ -9,7 +9,8 @@ $(".5").on('click', setXO);
 $(".6").on('click', setXO);
 $(".7").on('click', setXO);
 $(".8").on('click', setXO);
-$("#Reset").on('submit', reset);
+$("#clearBoard").on('click', clearBoard);
+$("#reset").on('submit', clearBoard);
 
 $(document).ready(
   $(function() {
