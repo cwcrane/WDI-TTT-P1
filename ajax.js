@@ -3,6 +3,7 @@
 var tttapi = {
   gameWatcher: null,
   ttt: 'http://ttt.wdibos.com',
+  //ttt: 'https://d64d8f8d.ngrok.io',
 
   ajax: function(config, cb) {
     $.ajax(config).done(function(data, textStatus, jqxhr) {
@@ -99,7 +100,7 @@ var tttapi = {
   watchGame: function (id, token) {
     var url = this.ttt + '/games/' + id + '/watch';
     var auth = {
-      Authorization: 'Token token=' + token
+      Authorization: 'Token token=' + myApp.token
     };
     this.gameWatcher = resourceWatcher(url, auth); //jshint ignore: line
     return this.gameWatcher;

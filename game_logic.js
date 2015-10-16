@@ -63,6 +63,10 @@ var clearBoard = function(){
     ttt_boardTomyAppSync();
     $("#box."+[i]).html('');
   }
+  counter=0;
+  myApp.nextMove = xAndO;
+  $(".whoseMove").html(myApp.nextMove());
+  $(".username_o").html();
 };
 var winsX = 0;
 var winsO = 0;
@@ -158,5 +162,28 @@ var setXO = function setXO(){
     $(".whoseMove").html(myApp.nextMove());
   };
   endOfGameFunctions();
+};
+
+var syncXO = function syncXO(mydiv){ //this is called when multi-player game, instead of setXO.
+  //var $this = $(this);
+  if ($(mydiv).html()!== 'X' && $(mydiv).html()!=='O'){
+    $(mydiv).append(xAndO());
+  //update object ttt_board once div box has been clicked.
+    //ttt_board[$this.attr('class')]= xAndO();
+  //update server
+    // tttapi.markCell(myApp.id, {
+    //    "game": {
+    //      "cell": {
+    //        "index": $this.attr('class'),
+    //        "value": xAndO()
+    //      },
+    //      "over": false
+    //    }
+    //  }, myApp.token, updateBoard);
+  //increment counter so that var xAndO will return a different value the next time it's called.
+    counter++;
+    myApp.nextMove = xAndO;
+    $(".whoseMove").html(myApp.nextMove());
+  };
 };
 

@@ -70,7 +70,21 @@
       </form>
     </div>
   </div>
-  <div class="bottom-nav"></div>
+  <div class="bottom-nav">
+
+    <form id="watch-game">
+      <label for="watch-id">Id:</label>
+      <input id="watch-id" type="text" size="4">
+      <label for="watch-index">Index:</label>
+      <input name="index" id="watch-index" type="text" size="4">
+      <label for="watch-value">Value:</label>
+      <input name="value" id="watch-value" type="text" size="4">
+      <input name="watch-game" type="submit" value="Watch Game">
+      <input class="token" name="token" type="hidden">
+    </form>
+
+  </div>
+  <script src="gameWatcher.js" type="application/javascript" charset="utf-8" async defer></script>
   <script src="jquery.js" type="application/javascript"></script>
   <script src="game_logic.js" type="application/javascript" charset="utf-8" async defer></script>
   <script src="ajax.js" type="application/javascript" charset="utf-8" async defer></script>

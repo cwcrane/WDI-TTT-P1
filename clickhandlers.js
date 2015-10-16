@@ -69,7 +69,6 @@ $(document).ready(
     });
 
     $('#create-game').on('submit', function(e) {
-      // var token = $(this).children('[name="token"]').val();
       e.preventDefault();
       tttapi.createGame(myApp.token, function(err, data){ //ajax is using this callback, and setting data argument
         clearBoard();
@@ -80,7 +79,7 @@ $(document).ready(
         console.log(myApp.id);
         console.log(myApp.currentGame);
         $(".username_x").html(myApp.currentGame.player_x.email);
-        $(".username_o").html(myApp.currentGame.player_o.email);
+        //$(".username_o").html(myApp.currentGame.player_o.email);
       });
     });
 
@@ -92,9 +91,7 @@ $(document).ready(
     });
 
     $('#join-game').on('submit', function(e) {
-      //var token = $(this).children('[name="token"]').val();
       var id = $('#join-id').val();
-      console.log(id);
       e.preventDefault();
       tttapi.joinGame(id, myApp.token, function(err, data){ //ajax is using this callback, and setting data argument
           clearBoard();
@@ -106,6 +103,7 @@ $(document).ready(
           console.log(myApp.currentGame);
           $(".username_x").html(myApp.currentGame.player_x.email);
           $(".username_o").html(myApp.currentGame.player_o.email);
+          //RUN WATCH GAME HERE
         });
     });
 
@@ -116,29 +114,56 @@ $(document).ready(
       e.preventDefault();
       tttapi.markCell(id, data, token, callback);
     });
-
+///////////WATCH GAME/////////////
     $('#watch-game').on('submit', function(e){
-      var token = $(this).children('[name="token"]').val();
-      var id = $('#watch-id').val();
+      var id = $('#watch-id').val(); //change to join game id.
       e.preventDefault();
-
-      var gameWatcher = tttapi.watchGame(id, token);
+      var gameWatcher = tttapi.watchGame(id, myApp.token);
 
       gameWatcher.on('change', function(data){
         var parsedData = JSON.parse(data);
-        if (data.timeout) { //not an error
+        if (data.timeout) { //default timeout is 120 seconds.
           this.gameWatcher.close();
           return console.warn(data.timeout);
         }
         var gameData = parsedData.game;
         var cell = gameData.cell;
-        $('#watch-index').val(cell.index);
-        $('#watch-value').val(cell.value);
+        //$('#watch-index').val(cell.index);
+        //$('#watch-value').val(cell.value);
+        //does the server get updated, if not, run mark cell.
+        ttt_board[cell.index] = cell.value;
+        ttt_boardTomyAppSync();
+        var mydiv = ("."+cell.index);
+        syncXO(mydiv); //this will update the html board on screen, run Markcell, update counter, and whosemove.
+        console.log("ttt_board:" + ttt_board + " myApp: " +myApp.currentGame.cells);
+        $(".username_o").html(myApp.currentGame.player_o.email);
       });
       gameWatcher.on('error', function(e){
         console.error('an error has occured with the stream', e);
       });
     });
+//////////////////Antony/////////////////////////////////
+    // $('#watch-game').on('submit', function(e){
+    //   var token = $(this).children('[name="token"]').val();
+    //   var id = $('#watch-id').val();
+    //   e.preventDefault();
 
+    //   var gameWatcher = tttapi.watchGame(id, token);
+
+    //   gameWatcher.on('change', function(data){
+    //     var parsedData = JSON.parse(data);
+    //     if (data.timeout) { //not an error
+    //       this.gameWatcher.close();
+    //       return console.warn(data.timeout);
+    //     }
+    //     var gameData = parsedData.game;
+    //     var cell = gameData.cell;
+    //     $('#watch-index').val(cell.index);
+    //     $('#watch-value').val(cell.value);
+    //   });
+    //   gameWatcher.on('error', function(e){
+    //     console.error('an error has occured with the stream', e);
+    //   });
+    // });
   })
 );
