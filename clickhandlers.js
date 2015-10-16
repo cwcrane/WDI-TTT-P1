@@ -103,17 +103,16 @@ $(document).ready(
           console.log(myApp.currentGame);
           $(".username_x").html(myApp.currentGame.player_x.email);
           $(".username_o").html(myApp.currentGame.player_o.email);
-          //RUN WATCH GAME HERE
         });
     });
 
-    $('#mark-cell').on('submit', function(e) {
-      var token = $(this).children('[name="token"]').val();
-      var id = $('#mark-id').val();
-      var data = wrap('game', wrap('cell', form2object(this)));
-      e.preventDefault();
-      tttapi.markCell(id, data, token, callback);
-    });
+    // $('#mark-cell').on('submit', function(e) {
+    //   var token = $(this).children('[name="token"]').val();
+    //   var id = $('#mark-id').val();
+    //   var data = wrap('game', wrap('cell', form2object(this)));
+    //   e.preventDefault();
+    //   tttapi.markCell(id, data, token, callback);
+    // });
 ///////////WATCH GAME/////////////
     $('#watch-game').on('submit', function(e){
       var id = $('#watch-id').val(); //change to join game id.

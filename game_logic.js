@@ -66,7 +66,7 @@ var clearBoard = function(){
   counter=0;
   myApp.nextMove = xAndO;
   $(".whoseMove").html(myApp.nextMove());
-  $(".username_o").html();
+  $(".username_o").html('');
 };
 var winsX = 0;
 var winsO = 0;
